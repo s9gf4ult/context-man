@@ -1,0 +1,161 @@
+\mainlanguage[ru]
+
+\usemodule  [simplefonts][size=12pt]
+\usemodule [vim]
+\defineframedtext [CODEBLOCK][background=color,backgroundcolor=lightgray,width=\dimexpr(\textwidth-1cm),
+                              frame=off,offset=2mm]
+\defineframedtext [CODERESULT][width=\dimexpr(\textwidth-1cm),frame=off,offset=2mm]
+
+\definevimtyping[TEX][syntax=context,before=\startCODEBLOCK,after=\stopCODEBLOCK]
+
+\usemodule  [metafun]
+
+\setmainfont[dejavusans][expansion=quality,protrusion=quality]
+\setmonofont[monaco][expansion=quality,protrusion=quality]
+%% \setupinterlinespace[1.15em]
+\setupalign[width,stretch]
+\setuppagenumbering[location={footer,right}, style=bold]
+\setupwhitespace[small]
+\setupindenting[medium, yes]
+
+\setuplayout[topspace=0mm,backspace=2.5cm,header=1cm,
+             footer=1.5cm,width=\dimexpr(\paperwidth-4cm),
+             height=\dimexpr(\paperheight-1cm),margin=1.5cm]
+
+\setuphead[title][align={nothyphenated,flushleft,stretch}]
+\setuphead[subject][align={nothyphenated,flushleft}]
+
+\definedescription[descr][indenting=1cm,indentnext=yes,location=right,
+  width=\textwidth,distance=\dimexpr(1cm-\textwidth),align={width,stretch}]
+
+\setupTABLE[loffset=1mm,roffset=1mm,align={flushleft,stretch,lohi}]
+
+\definemakeup
+  [titlepage]
+  [align=center,footerstate=none]
+
+\def\c{ \hbox{\ConTeXt} }
+
+\starttext
+
+\subject{Общие правила}
+
+Весь текст в \c разбит на параграфы. Параграфы при верстке отделаются
+одной (и более) пустой строкой.
+
+\startdescr{code:} \hfill
+\startTEX
+Параграф один.
+
+Параграф два.
+
+
+Параграф три.
+\stopTEX
+\stopdescr
+
+\startdescr{result:} \hfill
+\startCODERESULT
+Параграф один.
+
+Параграф два.
+
+
+Параграф три.
+\stopCODERESULT
+\stopdescr
+
+
+
+В примере выше три параграфа. \c игнорирует идущие подряд пустые строки, так
+что, отбить расстояние энтерами как в верде не получиться. В данном случае
+расстояние между параграфами после верстки будет одинаковое.
+
+Также, в \c есть команды. Все команды начинаются с \tex{} (бэкслеш). Чтобы
+напечатать сам бэкслеш нужно ввести команду ``\tex{tex}'' вот так
+
+\startdescr{code:} \hfill
+\startTEX
+\tex{}
+\stopTEX
+\stopdescr
+
+\startdescr{result:} \hfill
+\startCODERESULT
+\tex{}
+\stopCODERESULT
+\stopdescr
+
+Кроме бэкслеша есть и другие специальные символы. С бэкслеша начинаются команды,
+а с \% начинаются коментарии. Все что идет после знака коментария
+игонорируется \c. Чтобы напечатать знак \%, а не коментарий
+нужно \quote{оквочить} символ \% бэкслешем.
+
+\startdescr{code:} \hfill
+\startTEX
+% Все, что идет после знака коментария игнорируется.
+% Этот текст не будет виден после компиляции
+Около 95\% опрошенных считают, что небо синего цвета.
+\% все, что идет после знака процента видно
+\stopTEX
+\stopdescr
+
+\startdescr{result:} \hfill
+\startCODERESULT
+% Все, что идет после знака коментария игнорируется.
+% Этот текст не будет виден после компиляции
+Около 95\% опрошенных считают, что небо синего цвета.
+\% все, что идет после знака процента видно
+\stopCODERESULT
+\stopdescr
+
+Кроме знака \% в \c есть и другие специальные символы.
+
+\placetable[here]{Специальные символы}{
+\bTABLE
+\setupTABLE[column][3][width=4cm]
+\bTR
+\bTD Символ \eTD
+\bTD Назначение \eTD
+\bTD Как напечатать сам сивол \eTD
+\eTR
+
+\bTR
+\bTD \% \eTD
+\bTD Символ коментария. Все, что идет после него до конца строки игнорируется. \eTD
+\bTD \tex{\%} \eTD
+\eTR
+
+\bTR
+\bTD \tex{} \eTD
+\bTD С этого символа начинаются команды \eTD
+\bTD \tex{tex\{\}} \eTD
+\eTR
+
+\bTR
+\bTD \$ \eTD
+\bTD С этого символа начинаются математические формулы, им же и заканчиваются \eTD
+\bTD \tex{\$} \eTD
+\eTR
+
+\bTR
+\bTD \{ \} \eTD
+\bTD Фигурные скобки используются для группирования текста и/или команд.
+Также, в фигурных скобках передаются аргументы для команд. \eTD
+\bTD \tex{\{} \tex{\}} \eTD
+\eTR
+
+\bTR
+\bTD \# \eTD
+\bTD Используется в формировании новых команд, обычно не нужен при простой верстке \eTD
+\bTD \tex{\#} \eTD
+\eTR
+
+\eTABLE}
+
+По сути, когда вы набираете \quote{\tex{%}} или \quote{\tex{$}} вы вызываете
+специальную команду, которая вставляет соответствующий знак в текст. В этом
+плане \quote{\tex{\%}} с точки зрения \c ничем не отличается
+от \quote{\tex{placefigure}} или любой другой команды.
+
+\stoptext
