@@ -1,0 +1,5 @@
+*.vimout
+*.log
+*~
+*.tuc
+*.pdf
