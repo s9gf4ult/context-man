@@ -1,0 +1,214 @@
+\title{Общие правила}
+
+Весь текст в \c разбит на параграфы. Параграфы при верстке отделаются
+одной (и более) пустой строкой.
+
+\startdescr{code:} \hfill
+\startTEX
+Параграф один.
+
+Параграф два.
+
+
+Параграф три.
+\stopTEX
+\stopdescr
+
+\startdescr{result:} \hfill
+\startCODERESULT
+Параграф один.
+
+Параграф два.
+
+
+Параграф три.
+\stopCODERESULT
+\stopdescr
+
+
+
+В примере выше три параграфа. \c игнорирует идущие подряд пустые строки, так
+что, отбить расстояние энтерами как в верде не получиться. В данном случае
+расстояние между параграфами после верстки будет одинаковое.
+
+Также, в \c есть команды. Все команды начинаются с \tex{} (бэкслеш). Чтобы
+напечатать сам бэкслеш нужно ввести команду ``\tex{tex}'' вот так
+
+\startdescr{code:} \hfill
+\startTEX
+\tex{}
+\stopTEX
+\stopdescr
+
+\startdescr{result:} \hfill
+\startCODERESULT
+\tex{}
+\stopCODERESULT
+\stopdescr
+
+Кроме бэкслеша есть и другие специальные символы. С бэкслеша начинаются команды,
+а с \% начинаются коментарии. Все что идет после знака коментария
+игонорируется \c. Чтобы напечатать знак \%, а не коментарий
+нужно \quote{оквочить} символ \% бэкслешем.
+
+\startdescr{code:} \hfill
+\startTEX
+% Все, что идет после знака коментария игнорируется.
+% Этот текст не будет виден после компиляции
+Около 95\% опрошенных считают, что небо синего цвета.
+\% все, что идет после знака процента видно
+\stopTEX
+\stopdescr
+
+\startdescr{result:} \hfill
+\startCODERESULT
+% Все, что идет после знака коментария игнорируется.
+% Этот текст не будет виден после компиляции
+Около 95\% опрошенных считают, что небо синего цвета.
+\% все, что идет после знака процента видно
+\stopCODERESULT
+\stopdescr
+
+Кроме знака \% в \c есть и другие специальные символы.
+
+\placetable[here]{Специальные символы}{
+\bTABLE
+\setupTABLE[column][3][width=4cm]
+\bTR
+\bTD Символ \eTD
+\bTD Назначение \eTD
+\bTD Как напечатать сам сивол \eTD
+\eTR
+
+\bTR
+\bTD \% \eTD
+\bTD Символ коментария. Все, что идет после него до конца строки игнорируется. \eTD
+\bTD \tex{\%} \eTD
+\eTR
+
+\bTR
+\bTD \tex{} \eTD
+\bTD С этого символа начинаются команды \eTD
+\bTD \tex{tex\{\}} \eTD
+\eTR
+
+\bTR
+\bTD \$ \eTD
+\bTD С этого символа начинаются математические формулы, им же и заканчиваются \eTD
+\bTD \tex{\$} \eTD
+\eTR
+
+\bTR
+\bTD \{ \} \eTD
+\bTD Фигурные скобки используются для группирования текста и/или команд.
+Также, в фигурных скобках передаются аргументы для команд. \eTD
+\bTD \tex{\{} \tex{\}} \eTD
+\eTR
+
+\bTR
+\bTD \# \eTD
+\bTD Используется в формировании новых команд, обычно не нужен при простой верстке \eTD
+\bTD \tex{\#} \eTD
+\eTR
+
+\eTABLE}
+
+По сути, когда вы набираете \quote{\tex{%}} или \quote{\tex{$}} вы вызываете
+специальную команду, которая вставляет соответствующий знак в текст. В этом
+плане \quote{\tex{\%}} с точки зрения \c ничем не отличается
+от \quote{\tex{placefigure}} или любой другой команды.
+
+\subject{dimension}
+
+В некоторых командах есть параметры, значение которых измеряется в
+расстоянии. Типовыми параметрами
+являются \quote{width}, \quote{heifht}, \quote{offset} и подобные. Например,
+если мы хотим задать конкретную ширину картинки, мы используем
+параметр \quote{width}
+
+\startdescr{code:} \hfill
+\startTEX
+\externalfigure[example.jpg][width=2cm]
+\externalfigure[example.jpg][width=1in]
+\externalfigure[example.jpg][width=0.2\textwidth]
+\externalfigure[example.jpg][width=\dimexpr(\textwidth-15cm)]
+\stopTEX
+\stopdescr
+
+\startdescr{result:} \hfill
+\startCODERESULT
+\externalfigure[example.jpg][width=2cm]
+\externalfigure[example.jpg][width=1in]
+\externalfigure[example.jpg][width=0.2\textwidth]
+\externalfigure[example.jpg][width=\dimexpr(\textwidth-15cm)]
+\stopCODERESULT
+\stopdescr
+
+В примере выше параметр \quote{width} задается в сантиметрах, дюймах, а
+также, параметрически. \tex{textwidth} - это команда, возвращающая текущую
+ширину текста.
+
+В третьей строке ширина картинки задается как 0.2 от ширины текста. Если бы мы
+хотели разместить картинку во всю ширину текста мы бы просто
+написали \quote{width=\tex{textwidth}}
+
+В четвертой строке используется команда \tex{dimexpr}, предназначенная для
+вычисления выражений с размерами. Например, в \tex{dimexpr} можно сложить
+сантиметры с дюймами, разделить ширину текста (или любое другое размерное
+значение) на два и отнять один сантиметр.
+
+Для указания едениц измерения используются постфиксы к цифрам
+
+\placetable[here]{Еденицы измерения}{
+\bTABLE
+\bTR
+\bTD Постфикс  \eTD
+\bTD Назначение \eTD
+\bTD Пример \eTD
+\eTR
+
+\bTR
+\bTD mm \eTD
+\bTD Миллиметры \eTD
+\bTD 2mm \eTD
+\eTR
+
+\bTR
+\bTD cm \eTD
+\bTD Сантиметры \eTD
+\bTD 5cm \eTD
+\eTR
+
+\bTR
+\bTD em \eTD
+\bTD Ширина буквы \quote{M} текущего шрифта \eTD
+\bTD 1.2em \eTD
+\eTR
+
+\bTR
+\bTD ex \eTD
+\bTD Высота буквы \quote{x} текущего шрифта \eTD
+\bTD 2ex \eTD
+\eTR
+
+\bTR
+\bTD pt \eTD
+\bTD Пункты. В пунктах измеряется высота шрифта. \eTD
+\bTD 14pt \eTD
+\eTR
+
+\bTR
+\bTD in \eTD
+\bTD Дюймы \eTD
+\bTD 3in \eTD
+\eTR
+\eTABLE}
+
+Можно, например, задать расстояние так
+
+\startTEX
+\dimexpr(1in+2cm+1ex)
+\stopTEX
+
+Что будет означать один дюйм, два сантиметра, плюс высота символа \quote{x}
+текущего шрифта.
