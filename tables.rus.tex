@@ -1,3 +1,111 @@
 \title{Таблицы}
 
 \subject{Общие принципы}
+
+Таблицы в \c верстаются с помощью 3х пар команд.
+
+
+\startdescr{code:} \hfill
+\startTEX
+\bTABLE
+\bTR
+\bTD \tex{bTABLE} / \tex{eTABLE} \eTD
+\bTD Начало / конец таблицы \eTD
+\eTR
+
+\bTR
+\bTD \tex{bTR} / \tex{eTR} \eTD
+\bTD Начало / конец строки в таблице \eTD
+\eTR
+
+\bTR
+\bTD \tex{bTD} / \tex{eTD} \eTD
+\bTD Начало / конец колонки в строке \eTD
+\eTR
+\eTABLE
+\stopTEX
+\stopdescr
+
+\startdescr{result:} \hfill
+\startCODERESULT
+\bTABLE
+\bTR
+\bTD \tex{bTABLE} / \tex{eTABLE} \eTD
+\bTD Начало / конец таблицы \eTD
+\eTR
+
+\bTR
+\bTD \tex{bTR} / \tex{eTR} \eTD
+\bTD Начало / конец строки в таблице \eTD
+\eTR
+
+\bTR
+\bTD \tex{bTD} / \tex{eTD} \eTD
+\bTD Начало / конец колонки в строке \eTD
+\eTR
+\eTABLE
+\stopCODERESULT
+\stopdescr
+
+Пример выше - одновременно пример, и пояснение по командам. Общее правило для
+верстки таблиц - это вложенность. На самом верхнем уровне находится таблица. Все
+тело таблицы должно быть между \tex{bTABLE} и \tex{eTABLE}. Само тело состоит из
+строк, содержание каждой строки таблицы располагается между \tex{bTR} и
+\tex{eTR}. Далее, каждая строка содержит в себе столбцы, содержимое которых
+располагается между \tex{bTD} и \tex{eTD}.
+
+\vbox{
+Вот еще пример таблицы:
+
+\startdescr{code:} \hfill
+\startTEX
+\bTABLE
+\bTR
+\bTD 1 \eTD
+\bTD 2 \eTD
+\bTD 3 \eTD
+\bTD 4 \eTD
+\bTD 5 \eTD
+\bTD 6 \eTD
+\eTR
+
+\bTR
+\bTD один   \eTD
+\bTD два    \eTD
+\bTD три    \eTD
+\bTD четыре \eTD
+\bTD пять   \eTD
+\bTD шесть  \eTD
+\eTR
+\eTABLE
+\stopTEX
+\stopdescr
+
+\startdescr{result:} \hfill
+\startCODERESULT
+\bTABLE
+\bTR
+\bTD 1 \eTD
+\bTD 2 \eTD
+\bTD 3 \eTD
+\bTD 4 \eTD
+\bTD 5 \eTD
+\bTD 6 \eTD
+\eTR
+
+\bTR
+\bTD один   \eTD
+\bTD два    \eTD
+\bTD три    \eTD
+\bTD четыре \eTD
+\bTD пять   \eTD
+\bTD шесть  \eTD
+\eTR
+\eTABLE
+\stopCODERESULT
+\stopdescr
+}
+
+\subject{Объединенные ячейки}
+
+Объединенные ячейки создаются с помощью опциональных

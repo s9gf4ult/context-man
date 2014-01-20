@@ -118,6 +118,41 @@
 плане \quote{\tex{%}} с точки зрения \c ничем не отличается
 от \quote{\tex{placefigure}} или любой другой команды.
 
+\subject{Вызов команд}
+
+Как уже было сказано, каждая команда начинается с \tex{} после
+которого сразу, без пробелов, следует название команды. Например
+
+\startdescr{code:} \hfill
+\startTEX
+ООО \quotation{Вектор}
+\stopTEX
+\stopdescr
+
+\startdescr{result:} \hfill
+\startCODERESULT
+ООО \quotation{Вектор}
+\stopCODERESULT
+\stopdescr
+
+В примере выше \quote{quotation} - это название команды.
+
+У команд могут иметься еще и параметры. В примере выше у
+команды \tex{quotation} есть один обязательный аргумент
+(\quote{Вектор}) заключенный в фигурные скобки.
+
+У команд бывают обязательные и необязательные параметры. Обязательные
+параметры должны присутствовать всегда. Если вызвать команду без
+обязательного параметра, то это приведет к ошибке компиляции
+документы, о чем \c пояснит в сообщении.
+
+Обязательные аргументы заключаются {\bf всегда в фигурные
+скобки}. Обязательных параметров может быть больше одного, а может не
+быть вообще. Ниже есть примеры использования
+команды \tex{placefigure}, которая имеет два обязатльных аргумента.
+
+Необязательные аргументы заключаются в
+
 \subject{Размерности}
 
 В некоторых командах есть параметры, значение которых измеряется в
@@ -126,6 +161,7 @@
 если мы хотим задать конкретную ширину картинки, мы используем
 параметр \quote{width}
 
+\vbox{
 \startdescr{code:} \hfill
 \startTEX
 \externalfigure[example.jpg][width=2cm]
@@ -134,7 +170,9 @@
 \externalfigure[example.jpg][width=\dimexpr(\textwidth-15cm)]
 \stopTEX
 \stopdescr
+}
 
+\vbox{
 \startdescr{result:} \hfill
 \startCODERESULT
 \externalfigure[example.jpg][width=2cm]
@@ -143,6 +181,7 @@
 \externalfigure[example.jpg][width=\dimexpr(\textwidth-15cm)]
 \stopCODERESULT
 \stopdescr
+}
 
 В примере выше параметр \quote{width} задается в сантиметрах, дюймах, а
 также, параметрически. \tex{textwidth} - это команда, возвращающая текущую
@@ -347,3 +386,103 @@
        % следующей страницы.
 
 \page
+
+\subject{Горизонтальное выравнивание текста}
+
+Выравнивание по всему документу настраивается с помощью \tex{setupalign} в
+заголовке. Если нужно в конкретном месте изменить вырванивание используются
+команды \tex{startalignment} / \tex{stopalignment}.
+
+\startdescr{code:} \hfill
+\startTEX
+Параграф с обычным выравниванием
+
+\startalignment[middle]
+Параграф выравнен по центру
+\stopalignment
+
+\startalignment[flushright]
+Выравнено к правому краю
+\stopalignment
+
+\startalignment[width,stretch,nohyphenation]
+С другой стороны дальнейшее развитие различных
+форм деятельности способствует подготовки и
+реализации системы обучения кадров, соответствует
+насущным потребностям.
+\stopalignment
+\stopTEX
+\stopdescr
+
+\startdescr{result:} \hfill
+\startCODERESULT
+Параграф с обычным выравниванием
+
+\startalignment[middle]
+Параграф выравнен по центру
+\stopalignment
+
+\startalignment[flushright]
+Выравнено к правому краю
+\stopalignment
+
+\startalignment[width,stretch,nothyphenated]
+С другой стороны дальнейшее развитие различных
+форм деятельности способствует подготовки и
+реализации системы обучения кадров, соответствует
+насущным потребностям.
+\stopalignment
+\stopCODERESULT
+\stopdescr
+
+В примере выше первый параграф сверстан с выравниванием по умолчанию. Второй
+выравнен по центру. Третий к правому краю. Четвертый выровнен в ширину, при
+этом, отключены переносы слов.
+
+Вот краткий список параметров для \tex{startalignment}
+
+\placetable[here]{Параметры для \tex{startalignment}}{
+\bTABLE
+
+\bTR
+\bTD nothyphenated \eTD
+\bTD Отключить переносы слов
+\eTD
+
+\bTR
+\bTD stretch \eTD
+\bTD Параметр разрешает \c растягивать текст больше обычного.
+Опция бывает полезна для получения более красивого и ровного текста. \eTD
+\eTR
+
+\bTR
+\bTD flushleft \eTD
+\bTD Выравнивание по левому краю \eTD
+\eTR
+
+\bTR
+\bTD flushright \eTD
+\bTD Выравнивание по правому краю \eTD
+\eTR
+
+\bTR
+\bTD width \eTD
+\bTD Выравнивание по ширине \eTD
+\eTR
+
+\bTR
+\bTD middle \eTD
+\bTD Выравнивание по центру \eTD
+\eTR
+
+\bTR
+\bTD tolerant \eTD
+\bTD Опция разрешает \c делать более уродливые параграфы,
+чтобы избежать выхода текста за границы параграфа. Может быть
+полезно при верстке таблиц \eTD
+\eTR
+
+\eTABLE}
+
+Больше подробностей в
+\goto{документации}[url(http://wiki.contextgarden.net/Command/setupalign)]
