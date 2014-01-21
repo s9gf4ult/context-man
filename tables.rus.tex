@@ -108,4 +108,202 @@
 
 \subject{Объединенные ячейки}
 
-Объединенные ячейки создаются с помощью опциональных
+Объединенные ячейки создаются с помощью опциональных аргументов для команды
+\tex{bTD}.
+
+\placetable[here]{Аргументы \tex{bTD} для создания объединенных ячеек}{
+\bTABLE
+
+\bTR
+\bTD nc \eTD
+\bTD Количество колонок, занимаемое ячейкой. \eTD
+\eTR
+
+\bTR
+\bTD nr \eTD
+\bTD Количество строк, занимаемое ячейкой. \eTD
+\eTR
+
+\eTABLE}
+
+И сразу пример:
+
+\vbox{
+\startdescr{code:} \hfill
+\startTEX
+\bTABLE
+\bTR
+\bTD[nc=2] Эта ячейка занимает две колонки \eTD
+\eTR
+
+\bTR
+\bTD Простая ячейка \eTD
+\bTD Тоже простая \eTD
+\eTR
+\eTABLE
+\stopTEX
+\stopdescr
+}
+
+\vbox{
+\startdescr{result:} \hfill
+\startCODERESULT
+\bTABLE
+\bTR
+\bTD[nc=2] Эта ячейка занимает две колонки \eTD
+\eTR
+
+\bTR
+\bTD Простая ячейка \eTD
+\bTD Тоже простая \eTD
+\eTR
+\eTABLE
+\stopCODERESULT
+\stopdescr
+}
+
+Обратите внимане, что первая строка в таблице содержит лишь одну ячейку, но эта
+колонка занимает сразу две ячейки. Вторая же строка содержит две ячейки и они
+верстаются как обычно.
+
+\vbox{
+Теперь пример с многострочной ячейкой:
+
+\startdescr{code:} \hfill
+\startTEX
+\bTABLE
+\bTR
+\bTD[nr=2] Ячейка занимает две стркои \eTD
+\bTD обычная ячейка \eTD
+\eTR
+
+\bTR
+\bTD тоже обычная \eTD
+\eTR
+\eTABLE
+\stopTEX
+\stopdescr
+}
+
+\vbox{
+\startdescr{result:} \hfill
+\startCODERESULT
+\bTABLE
+\bTR
+\bTD[nr=2] Ячейка занимает две стркои \eTD
+\bTD обычная ячейка \eTD
+\eTR
+
+\bTR
+\bTD тоже обычная \eTD
+\eTR
+\eTABLE
+\stopCODERESULT
+\stopdescr
+}
+
+Тут все немного менее очевидно. Для начала, мы видим, что в первой строке
+указано две ячейки, тогда как во второй только одна. Дело в том, что
+многостроковая ячейка занимает, в данном случае, две строки: свою, первую
+строку, и следующую. Таким образом, во второй строке первая колонка уже занята
+многострочной ячейкой из предыдущей строки.
+
+Вот еще пример:
+
+\vbox{
+\startdescr{code:} \hfill
+\startTEX
+\bTABLE
+\bTR
+\bTD[nr=3] Ячейка занимает три стркои, свою и две нижних.
+Первая колонка в следующих двух строках уже занята этой
+ячейкой. \eTD
+\bTD обычная ячейка \eTD
+\eTR
+
+\bTR
+\bTD тоже обычная \eTD
+\eTR
+
+\bTR
+\bTD опять простая \eTD
+\eTR
+\eTABLE
+\stopTEX
+\stopdescr
+}
+
+\vbox{
+\startdescr{result:} \hfill
+\startCODERESULT
+\bTABLE
+\bTR
+\bTD[nr=3] Ячейка занимает три стркои, свою и две нижних.
+Первая колонка в следующих двух строках уже занята этой
+ячейкой. \eTD
+\bTD обычная ячейка \eTD
+\eTR
+
+\bTR
+\bTD тоже обычная \eTD
+\eTR
+
+\bTR
+\bTD опять простая \eTD
+\eTR
+\eTABLE
+\stopCODERESULT
+\stopdescr
+}
+
+Более сложный пример:
+
+\vbox{
+\startdescr{code:} \hfill
+\startTEX
+\bTABLE
+\bTR
+\bTD[nr=3] Ячейка занимает три стркои, свою и две нижних.
+Первая колонка в следующих двух строках уже занята этой
+ячейкой. \eTD
+\bTD обычная ячейка \eTD
+\bTD[nr=2] Ячейка занимает две строки, свою и следующую. \eTD
+\eTR
+
+\bTR
+\bTD тоже обычная \eTD
+\eTR
+
+\bTR
+\bTD опять простая \eTD
+\bTD на этой строке верхняя ячейка уже не распространяется. \eTD
+\eTR
+\eTABLE
+\stopTEX
+\stopdescr
+}
+
+\vbox{
+\startdescr{result:} \hfill
+\startCODERESULT
+\bTABLE
+\bTR
+\bTD[nr=3] Ячейка занимает три стркои, свою и две нижних.
+Первая колонка в следующих двух строках уже занята этой
+ячейкой. \eTD
+\bTD обычная ячейка \eTD
+\bTD[nr=2] Ячейка занимает две строки, свою и следующую. \eTD
+\eTR
+
+\bTR
+\bTD тоже обычная \eTD
+\eTR
+
+\bTR
+\bTD опять простая \eTD
+\bTD на этой строке верхняя ячейка уже не распространяется. \eTD
+\eTR
+\eTABLE
+\stopCODERESULT
+\stopdescr
+}

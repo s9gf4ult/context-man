@@ -36,21 +36,76 @@
 \bTR
 \bTD factor \eTD
 \bTD обычно исползуют значение \quote{fit}.
-factor=fit масштабирует картинку под размер контейнера в котором
+\quote{factor=fit} масштабирует картинку под размер контейнера в котором
 она находится. Будь это ячейка таблицы, либо простой параграф. \eTD
 \eTR
 
 \eTABLE}
 
-Более подробно в
-\goto{документации}[url(http://wiki.contextgarden.net/Command/externalfigure)]
+\tex{externalfigure} не занимается управлением расположения картинки, она
+просто вставляет картинку в то место, где была вызвана команда. Можно вставлять
+картинку даже прямо в текст.
 
 \vbox{
-Вот что получается, когда указываешь \quote{factor=fit} в параметрах
-к \tex{externalfigure}
+\startdescr{code:} \hfill
+\startTEX
+вот идет обычный параграв
+\externalfigure[example.jpg][height=2em]
+и параграф продолжается после вставки картинки.
+\stopTEX
+\stopdescr
+}
+
+\vbox{
+\startdescr{result:} \hfill
+\startCODERESULT
+вот идет обычный параграв
+\externalfigure[example.jpg][height=2em]
+и параграф продолжается после вставки картинки.
+\stopCODERESULT
+\stopdescr
+}
+
+Обратите внимание, что \tex{externalfigure} размещен внутри параграфа. Если мы
+отделим \tex{externalfigure} пустыми строками от текста сверху и снизу, то
+картика окажется в отдельном параграфе и после верстки будет выглядеть абсолютно
+иначе:
+
+\vbox{
+\startdescr{code:} \hfill
+\startTEX
+вот идет обычный параграв
+
+\externalfigure[example.jpg][height=2em]
+
+а вот уже совсем другой параграф
+\stopTEX
+\stopdescr
+}
+
+\vbox{
+\startdescr{result:} \hfill
+\startCODERESULT
+вот идет обычный параграв
+
+\externalfigure[example.jpg][height=2em]
+
+а вот уже совсем другой параграф
+\stopCODERESULT
+\stopdescr
+}
+
+Не забывайте о параграфах, когда верстаете текст.
+
+\vbox{
+А вот что получается, когда указываешь \quote{factor=fit} в параметрах
+к \\ \tex{externalfigure}
 
 \externalfigure[example.jpg][factor=fit]
 }
+
+Более подробно в
+\goto{документации}[url(http://wiki.contextgarden.net/Command/externalfigure)]
 
 \subject{\tex{placefigure}}
 
