@@ -532,5 +532,169 @@
 необязательных аргументов, в зависимости от того, сколько аргмументов ей
 передать, результат ее работы будет разный.
 
-Если мы передаем \tex{setupTABLE} один аргумент, то значение этого аргумента
-рассматривается как настройка для таблицы.
+Есть несколько способов вызвать команду \tex{setupTABLE}
+
+\startTEX
+\setupTABLE[параметры таблицы]
+\stopTEX
+
+Если мы передаем один необязательный параметр, то он рассматривается как
+настройка для всей таблицы. О возможных параметрах для таблицы будет ниже, пока
+разберемся с вызовом \tex{setupTABLE}.
+
+\vbox{
+\startdescr{code:} \hfill
+\startTEX
+\bTABLE
+\setupTABLE[width=2cm]
+\bTR
+\bTD 1 \eTD
+\bTD 2 \eTD
+\eTR
+
+\bTR
+\bTD 3 \eTD
+\bTD 4 \eTD
+\eTR
+\eTABLE
+\stopTEX
+\stopdescr
+}
+
+\vbox{
+\startdescr{result:} \hfill
+\startCODERESULT
+\bTABLE
+\setupTABLE[width=2cm]
+\bTR
+\bTD 1 \eTD
+\bTD 2 \eTD
+\eTR
+
+\bTR
+\bTD 3 \eTD
+\bTD 4 \eTD
+\eTR
+\eTABLE
+\stopCODERESULT
+\stopdescr
+}
+
+Команда \tex{setupTABLE} вызвана с одним аргументом. Поэтому \quote{width=2cm} применяется к каждой ячейке таблицы.
+
+Если передать три параметры, то они будут разобраны следующим образом:
+
+\startTEX
+\setupTABLE[column][номера колонок][настройки для колонки]
+\setupTABLE[row][номера строк][настройки для строки]
+\stopTEX
+
+Первый аргумент - это \quote{column} либо \quote{row}, что говорит, что
+дальнейшие параметры описывают настройки для колонок, либо для таблиц.
+
+Второй аргумент - это номера колонок, либо строк. Номера можно перечислять через
+запятую:
+
+\vbox{
+\startdescr{code:} \hfill
+\startTEX
+\bTABLE
+\setupTABLE[column][1][background=color,backgroundcolor=red]
+\setupTABLE[column][2,3,4][background=color,backgroundcolor=blue]
+\setupTABLE[column][5][background=color,backgroundcolor=green]
+\bTR
+\bTD 1 \eTD
+\bTD 2 \eTD
+\bTD 3 \eTD
+\bTD 4 \eTD
+\bTD 5 \eTD
+\eTR
+\eTABLE
+\stopTEX
+\stopdescr
+}
+
+\vbox{
+\startdescr{result:} \hfill
+\startCODERESULT
+\bTABLE
+\setupTABLE[column][1][background=color,backgroundcolor=red]
+\setupTABLE[column][2,3,4][background=color,backgroundcolor=blue]
+\setupTABLE[column][5][background=color,backgroundcolor=green]
+\bTR
+\bTD 1 \eTD
+\bTD 2 \eTD
+\bTD 3 \eTD
+\bTD 4 \eTD
+\bTD 5 \eTD
+\eTR
+\eTABLE
+\stopCODERESULT
+\stopdescr
+}
+
+Также, номера могут иметь значение \quote{even} или \quote{odd}, что означаете
+четные и нечетные номера соответственно.
+
+\vbox{
+\startdescr{code:} \hfill
+\startTEX
+\bTABLE
+\setupTABLE[column][even]
+           [width=1cm,background=color,backgroundcolor=blue]
+\setupTABLE[column][odd]
+           [background=color,backgroundcolor=green]
+\bTR
+\bTD 1 \eTD
+\bTD 2 \eTD
+\bTD 3 \eTD
+\bTD 4 \eTD
+\bTD 5 \eTD
+\bTD 6 \eTD
+\bTD 7 \eTD
+\eTR
+\eTABLE
+\stopTEX
+\stopdescr
+}
+
+\vbox{
+\startdescr{result:} \hfill
+\startCODERESULT
+\bTABLE
+\setupTABLE[column][even]
+           [width=1cm,background=color,backgroundcolor=blue]
+\setupTABLE[column][odd]
+           [background=color,backgroundcolor=green]
+\bTR
+\bTD 1 \eTD
+\bTD 2 \eTD
+\bTD 3 \eTD
+\bTD 4 \eTD
+\bTD 5 \eTD
+\bTD 6 \eTD
+\bTD 7 \eTD
+\eTR
+\eTABLE
+\stopCODERESULT
+\stopdescr
+}
+
+Теперь о параметрах ячеек.
+
+\placetable[here]{Параметры ячеек для \tex{setupTABLE}}{
+\bTABLE
+
+\bTR
+\bTD Параметр \eTD
+\bTD Описание \eTD
+\bTD Пример \eTD
+\eTR
+
+\bTR
+\bTD width \eTD
+\bTD Задает ширину ячейки. \eTD
+\bTD width=2cm \eTD
+\eTR
+
+\eTABLE}
