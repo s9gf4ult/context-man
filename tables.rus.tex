@@ -682,19 +682,148 @@
 
 Теперь о параметрах ячеек.
 
-\placetable[here]{Параметры ячеек для \tex{setupTABLE}}{
-\bTABLE
-
+\placetable[here,split]{Параметры ячеек для \tex{setupTABLE}}{
+\bTABLE[split=yes]
+\setupTABLE[column][3][width=4cm]
 \bTR
 \bTD Параметр \eTD
+\bTD Значение \eTD
 \bTD Описание \eTD
 \bTD Пример \eTD
 \eTR
 
 \bTR
 \bTD width \eTD
+\bTD Длина \eTD
 \bTD Задает ширину ячейки. \eTD
 \bTD width=2cm \eTD
 \eTR
 
+\bTR
+\bTD height \eTD
+\bTD Длина \eTD
+\bTD Задает высоту ячейки. \eTD
+\bTD height=2em \eTD
+\eTR
+
+\bTR
+\bTD align \eTD
+\bTD Опции вырванивания текста, такие же, как для команды \tex{startalignment},
+за исключением дополнительных значений \eTD
+\bTD Задает выравнивание  \eTD
+\bTD align=\{middle,lohi\} \eTD
+\eTR
+
+\bTR
+\bTD background \eTD
+\bTD \quote{color}, возможно другие. Если указано значение \quote{color} то
+подложка заливается одним цветом, а параметр \quote{backgroundcolor} укзывает,
+каким. \eTD
+\bTD Задает тип подложки для ячейки \eTD
+\bTD background=color \eTD
+\eTR
+
+\bTR
+\bTD backgroundcolor \eTD
+\bTD Нвазвание цвета. Есть предопределенные цвета, вроде \quote{red},
+\quote{blue}, \quote{lightgray} \eTD
+\bTD Задает цвет подложки ячейки. \eTD
+\bTD backgroundcolor=lightgray\eTD
+\eTR
+
+\bTR
+\bTD split\eTD
+\bTD yes/no\eTD
+\bTD Разрешает разбиение таблицы на несколько страниц\eTD
+\bTD split=yes\eTD
+\eTR
+
+\bTR
+\bTD frame\eTD
+\bTD on / off. Если \quote{frmae=off}, то рамки вокруг ячейки не будет\eTD
+\bTD Включает / выключает рамку.\eTD
+\bTD frame=off\eTD
+\eTR
+
+\bTR
+\bTD topframe \\
+leftframe \\
+rightframe \\
+bottomframe \eTD
+\bTD on / off\eTD
+\bTD Вкл/выкл рамку у конкретной стороны ячейки\eTD
+\bTD leftframe=off\eTD
+\eTR
 \eTABLE}
+
+\subject{Выравнивание текста в таблицах}
+
+Чтобы настроить вырванивание внутри ячейки таблицы используется параметр
+\quote{align} команды \tex{setupTABLE}. Если настройки вырванивания сложные, то
+есть, состоят из нескольких правил, то эти правила группируются с помощью
+фигурных скобок \{ \}.
+
+\vbox{
+\startdescr{code:} \hfill
+\startTEX
+\bTABLE
+\setupTABLE[width=\dimexpr((\textwidth-1cm)/3),height=20cm]
+\setupTABLE[column][1][align={flushleft,tolerant,nothyphenated}]
+\setupTABLE[column][2][align={middle,morehyphenation,lohi},frame=off]
+\setupTABLE[column][3][align={width,stretch,tolerant,low}]
+\bTR
+\bTD \input weisman \eTD
+\bTD \input weisman \eTD
+\bTD \input weisman \eTD
+\eTR
+\eTABLE
+\stopTEX
+\stopdescr
+}
+
+\vbox{
+\startdescr{result:} \hfill
+\startCODERESULT
+\bTABLE
+\setupTABLE[width=\dimexpr((\textwidth-1cm-2mm)/3),height=20cm]
+\setupTABLE[column][1][align={flushleft,tolerant,nothyphenated}]
+\setupTABLE[column][2][align={middle,morehyphenation,lohi},frame=off]
+\setupTABLE[column][3][align={width,stretch,tolerant,low}]
+\bTR
+\bTD \input weisman \eTD
+\bTD \input weisman \eTD
+\bTD \input weisman \eTD
+\eTR
+\eTABLE
+\stopCODERESULT
+\stopdescr
+}
+
+Обратите внимание на то, как мы сделали все колонки одинаковой ширины с помощью
+\tex{dimexpr}.
+
+Значение \quote{align} задано в фигурных скобках. Если бы этих скобок не было,
+\c не смог бы отличить значение для \quote{align} от идущей после него опции,
+как в опции для второй колонки. Кроме того, тут у нас появились новые опции для
+\quote{align}: \quote{lohi} и \quote{low}.
+
+\placetable[here]{Дополнительные значения для \quote{align} в таблицах}{
+\bTABLE
+\bTR
+\bTD lohi\eTD
+\bTD Цертрирует содержание ячейки по вертикали\eTD
+\eTR
+
+\bTR
+\bTD low\eTD
+\bTD Прижимает содержание ячейки к низу\eTD
+\eTR
+
+\bTR
+\bTD high\eTD
+\bTD Прижимает содержимое ячейки к верху, именно так происходит по умолчанию\eTD
+\eTR
+\eTABLE}
+
+Больше информации можно найти в
+\goto{документации}[url(http://wiki.contextgarden.net/TABLE)]
