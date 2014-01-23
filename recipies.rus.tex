@@ -1,0 +1,319 @@
+\title{Различные рецепты}
+
+\subject{Как автоматически расположить картинки по горизонтали}
+
+Иногда надо расположить картинки так, чтобы высота была одинаковая, а суммарная
+ширина картинок равнялась ширине текста (ну или заданному значению). Этого можно
+достичь следующим образом:
+
+\vbox{
+\startdescr{code:} \hfill
+\startTEX
+\scale[width=\textwidth]{
+  \externalfigure[wide.jpg][height=1cm]%
+  \externalfigure[square.jpg][height=1cm]
+}
+\stopTEX
+\stopdescr
+}
+
+\vbox{
+\startdescr{result:} \hfill
+
+\scale[width=\textwidth]{
+  \externalfigure[wide.jpg][height=1cm]%
+  \externalfigure[square.jpg][height=1cm]
+}
+
+\stopdescr
+}
+
+Обратите внимание на знак коментария после первой команды
+\tex{externalfigure}. Это для того, чтобы между картинками не вставлялся пробел,
+ведь перевод строки рассматривается \c как пробельный символ, и потому в строке
+оказывается пробел между картинками, если убрать знак коментраия, то картинки
+будут прижиматься не вплотную.
+
+\vbox{
+\startdescr{code:} \hfill
+\startTEX
+\scale[width=\textwidth]{
+  \externalfigure[wide.jpg][height=1cm]
+  \externalfigure[square.jpg][height=1cm]
+}
+\stopTEX
+\stopdescr
+}
+
+\vbox{
+\startdescr{result:} \hfill
+
+\scale[width=\textwidth]{
+  \externalfigure[wide.jpg][height=1cm]
+  \externalfigure[square.jpg][height=1cm]
+}
+
+\stopdescr
+}
+
+В принципе, можно было бы просто записать две команды \tex{externalfigure} в
+одну строку без пробелов, но это не очень удобно при редактировании исходного
+текста. Знак кометрания коментирует не просто окончание строки, но и сам символ перевода строки, таким образом висящий в конце знак коментрария позволяет располагать содержимое следующей строки без пробелов.
+
+\vbox{
+\startdescr{code:} \hfill
+\startTEX
+\scale[width=\textwidth]{
+  \externalfigure[wide.jpg][height=1cm]%
+  \externalfigure[square.jpg][height=1cm]%
+  \externalfigure[example.jpg][height=1cm]%
+  \externalfigure[wide.jpg][height=1cm]
+}
+\stopTEX
+\stopdescr
+}
+
+\vbox{
+\startdescr{result:} \hfill
+
+\scale[width=\textwidth]{
+  \externalfigure[wide.jpg][height=1cm]%
+  \externalfigure[square.jpg][height=1cm]%
+  \externalfigure[example.jpg][height=1cm]%
+  \externalfigure[wide.jpg][height=1cm]
+}
+
+\stopdescr
+}
+
+Обратите внимание, как в примере выше картинки стали уже. Тут происходит
+следующее: сначала картинки располагаются в строчку с одинаковой высотой (1cm),
+после чего вся строка картинок масштабируется под нужную ширину. Высота картинок
+при этом изменяется пропорционально.
+
+Можно изменить соотношение высот картинок в строке просто поменяв изначальную
+высоту картинок пропорционально:
+
+\vbox{
+\startdescr{code:} \hfill
+\startTEX
+\scale[width=\textwidth]{
+  \externalfigure[wide.jpg][height=1cm]%
+  \externalfigure[wide.jpg][height=2cm]
+}
+\stopTEX
+\stopdescr
+}
+
+\vbox{
+  \startdescr{result:} \hfill
+
+  \scale[width=\textwidth]{
+    \externalfigure[wide.jpg][height=1cm]%
+    \externalfigure[wide.jpg][height=2cm]
+  }
+
+  \stopdescr
+}
+
+Обратите внимане, как изменились пропорции высот, с тем же успехом, можно
+вставлять картинки с пропорциональной шириной.
+
+\vbox{
+\startdescr{code:} \hfill
+\startTEX
+\scale[width=\textwidth]{
+  \externalfigure[wide.jpg][width=2cm]%
+  \externalfigure[square.jpg][width=1cm]
+}
+\stopTEX
+\stopdescr
+}
+
+\vbox{
+  \startdescr{result:} \hfill
+
+  \scale[width=\textwidth]{
+    \externalfigure[wide.jpg][width=2cm]%
+    \externalfigure[square.jpg][width=1cm]
+  }
+
+  \stopdescr
+}
+
+В примере выше левая картинка в два раза шире, чем
+правая. Изначальные абсолютные размеры картинок не играют
+особой роли, важны лишь пропорции, ибо картинки все равно
+масштабируются под заданную ширину.
+
+\subject{Как расположить картинку и текст одним блоком}
+
+Просто используйте таблицы. В \c таблицы - это универсальный
+инструмент для верстки. Если выключить рамки таблиц, то
+можно с помощью них располагать элементы выравненными
+относительно друг друга.
+
+
+\vbox{
+\startdescr{code:} \hfill
+\startTEX
+\bTABLE
+\setupTABLE[column][1][width=\dimexpr(\textwidth/3)]
+\setupTABLE[align={lohi,width,stretch,tolerant},frame=off]
+\bTR
+\bTD \externalfigure[square.jpg][factor=fit] \eTD
+\bTD \input knuth \eTD
+\eTR
+\eTABLE
+\stopTEX
+\stopdescr
+}
+
+\vbox{
+\startdescr{result:} \hfill
+
+\bTABLE
+\setupTABLE[column][1][width=\dimexpr(\textwidth/3)]
+\setupTABLE[align={lohi,width,stretch,tolerant},frame=off]
+\bTR
+\bTD \externalfigure[square.jpg][factor=fit] \eTD
+\bTD \input knuth \eTD
+\eTR
+\eTABLE
+
+\stopdescr
+}
+
+Таким образом, можно формировать нечто вроде следующей страницы:
+
+\page
+
+\bTABLE
+\setupTABLE[column][1][width=\dimexpr(\textwidth/2)]
+\setupTABLE[frame=off,align={width,stretch,tolerant,lohi}]
+\bTR
+\bTD \externalfigure[square.jpg][factor=fit] \eTD
+\bTD
+\startitemize
+\item Самый мощный и производительный источник плазменной
+  резки в линейке Powermax.
+
+\item Рабочий режим и надежность этого аппарата отвечает
+  самым высоким требованиям.
+
+\item Powermax 105 режет металл толщиной до 38 мм (с
+  кромки).
+
+\item {\bf Номинальная толщина механизированного прожига –
+  до 22 мм.}
+
+\stopitemize
+\eTD
+\eTR
+\eTABLE
+
+\blank[1cm]
+\bTABLE
+\setupTABLE[column][2][width=\dimexpr(\textwidth/2)]
+\setupTABLE[frame=off,align={width,stretch,tolerant,lohi}]
+\bTR
+\bTD
+\startitemize
+\item Может быть использован в качестве источника для ручной
+  плазменной резки, а так же в составе различных систем и
+  установок автоматизированной плазменной резки с ЧПУ.
+
+\item Аппарат оснащен защитой и автоматическим выключением
+  при критическом износе расходных деталей.
+
+\item Технология Smart Sense™ автоматически регулирует
+  давление газа в соответствии с режимом резки и длиной
+  провода резака для достижения оптимальной
+  производительности.
+
+\stopitemize
+\eTD
+\bTD \externalfigure[161.png][factor=fit] \eTD
+\eTR
+\eTABLE
+
+\bigskip
+Оснащенный последними высокотехнологическими разработками,
+такими как технология Smart Sense™ для автоматической
+регулировки давления газа, Powermax 65 позволяет сделать
+больше, чем когда-либо прежде. Четыре шаблона резака
+Duramax™ повышают гибкость применения и позволяют операторам
+выбирать нужный для работы инструмент.
+
+\page
+
+А вот и исходник этой страницы:
+
+\vbox{
+\startdescr{code:} \hfill
+\startTEX
+\bTABLE
+\setupTABLE[column][1][width=\dimexpr(\textwidth/2)]
+\setupTABLE[frame=off,align={width,stretch,tolerant,lohi}]
+\bTR
+\bTD \externalfigure[square.jpg][factor=fit] \eTD
+\bTD
+\startitemize
+\item Самый мощный и производительный источник плазменной
+  резки в линейке Powermax.
+
+\item Рабочий режим и надежность этого аппарата отвечает
+  самым высоким требованиям.
+
+\item Powermax 105 режет металл толщиной до 38 мм (с
+  кромки).
+
+\item {\bf Номинальная толщина механизированного прожига –
+  до 22 мм.}
+
+\stopitemize
+\eTD
+\eTR
+\eTABLE
+
+\blank[1cm]
+\bTABLE
+\setupTABLE[column][2][width=\dimexpr(\textwidth/2)]
+\setupTABLE[frame=off,align={width,stretch,tolerant,lohi}]
+\bTR
+\bTD
+\startitemize
+\item Может быть использован в качестве источника для ручной
+  плазменной резки, а так же в составе различных систем и
+  установок автоматизированной плазменной резки с ЧПУ.
+\stopTEX
+\stopdescr
+}
+
+\vbox{
+\startdescr{code:} \hfill
+\startTEX
+\item Аппарат оснащен защитой и автоматическим выключением
+  при критическом износе расходных деталей.
+
+\item Технология Smart Sense™ автоматически регулирует
+  давление газа в соответствии с режимом резки и длиной
+  провода резака для достижения оптимальной
+  производительности.
+
+\stopitemize
+\eTD
+\bTD \externalfigure[161.png][factor=fit] \eTD
+\eTR
+\eTABLE
+
+\bigskip
+Оснащенный последними высокотехнологическими разработками,
+такими как технология Smart Sense™ для автоматической
+регулировки давления газа, Powermax 65 позволяет сделать
+больше, чем когда-либо прежде. Четыре шаблона резака
+Duramax™ повышают гибкость применения и позволяют операторам
+выбирать нужный для работы инструмент.
+\stopTEX
+\stopdescr
+}
