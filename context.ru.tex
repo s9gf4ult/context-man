@@ -25,7 +25,8 @@
              height=\dimexpr(\paperheight-1cm),margin=1.5cm]
 
 \setuphead[chapter][align={nothyphenated,flushleft,tolerant},number=no]
-\setuphead[section][align={nothyphenated,flushleft,tolerant},number=no]
+\setuphead[section][align={nothyphenated,flushleft,tolerant},
+                    number=no,before={\testpage[5]}]
 
 \definedescription[descr][indenting=1cm,indentnext=yes,location=right,
   width=\textwidth,distance=\dimexpr(1cm-\textwidth),align={width,stretch}]
