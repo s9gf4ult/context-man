@@ -1,5 +1,9 @@
 \mainlanguage[ru]
 
+\setupinteraction[state=start]
+\placebookmarks[chapter,section,subsection][chapter,section]
+\setupinteractionscreen[option=bookmark]
+
 \usemodule  [simplefonts][size=12pt]
 \usemodule [vim]
 \defineframedtext [CODEBLOCK][background=color,backgroundcolor=lightgray,width=\dimexpr(\textwidth-1cm),
@@ -8,12 +12,10 @@
 
 \definevimtyping[TEX][syntax=context,before=\startCODEBLOCK,after=\stopCODEBLOCK]
 
-\usemodule  [metafun]
-
 \setmainfont[dejavusans][expansion=quality,protrusion=quality]
 \setmonofont[monaco][expansion=quality,protrusion=quality]
 %% \setupinterlinespace[1.15em]
-\setupalign[width,stretch]
+\setupalign[width,stretch,tolerant]
 \setuppagenumbering[location={footer,right}, style=bold]
 \setupwhitespace[small]
 \setupindenting[medium, no]
@@ -22,8 +24,8 @@
              footer=1.5cm,width=\dimexpr(\paperwidth-2.5cm),
              height=\dimexpr(\paperheight-1cm),margin=1.5cm]
 
-\setuphead[title][align={nothyphenated,flushleft,stretch}]
-\setuphead[subject][align={nothyphenated,flushleft}]
+\setuphead[chapter][align={nothyphenated,flushleft,tolerant},number=no]
+\setuphead[section][align={nothyphenated,flushleft,tolerant},number=no]
 
 \definedescription[descr][indenting=1cm,indentnext=yes,location=right,
   width=\textwidth,distance=\dimexpr(1cm-\textwidth),align={width,stretch}]
@@ -34,7 +36,6 @@
   [titlepage]
   [align=center,footerstate=none]
 
-\setupinteraction[state=start]
 
 \def\c{ \hbox{\ConTeXt} }
 
