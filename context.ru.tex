@@ -24,9 +24,10 @@
              footer=1.5cm,width=\dimexpr(\paperwidth-2.5cm),
              height=\dimexpr(\paperheight-1cm),margin=1.5cm]
 
-\setuphead[chapter][align={nothyphenated,flushleft,tolerant},number=no]
-\setuphead[section][align={nothyphenated,flushleft,tolerant},
-                    number=no,before={\testpage[5]}]
+\setuphead[chapter][align={nothyphenated,flushleft,tolerant},number=no,
+                    after={\blank[1.5em]}]
+\setuphead[section][align={nothyphenated,flushleft,tolerant},style={\tfa \bf},
+                    number=no,before={\testpage[10] \blank[1em]},after={\blank[0.5em]}]
 
 \definedescription[descr][indenting=1cm,indentnext=yes,location=right,
   width=\textwidth,distance=\dimexpr(1cm-\textwidth),align={width,stretch}]
@@ -49,6 +50,5 @@
 \input tables.rus.tex
 
 \input recipies.rus.tex
-
 
 \stoptext
