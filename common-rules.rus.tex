@@ -53,6 +53,7 @@
 игонорируется \c. Чтобы напечатать знак \%, а не коментарий
 нужно \quote{оквочить} символ \% бэкслешем.
 
+\vbox{
 \startdescr{code:} \hfill
 \startTEX
 % Все, что идет после знака коментария игнорируется.
@@ -61,7 +62,9 @@
 \% все, что идет после знака процента видно
 \stopTEX
 \stopdescr
+}
 
+\vbox{
 \startdescr{result:} \hfill
 \startCODERESULT
 % Все, что идет после знака коментария игнорируется.
@@ -70,6 +73,7 @@
 \% все, что идет после знака процента видно
 \stopCODERESULT
 \stopdescr
+}
 
 Кроме знака \% в \c есть и другие специальные символы.
 
@@ -881,3 +885,162 @@
 
 Более полная информация как всегда в
 \goto{документации}[url(http://wiki.contextgarden.net/Titles)]
+
+\section{Перечисления}
+
+Для создания перечислений есть команды \tex{startitemize} /
+\tex{stopitemize} и \tex{item}. Первые две нужны чтобы
+определить область текста, являющуюся перечислением, а втора
+чтобы вставить элемент списка. По умолчанию, каждый элемент
+списка выделяется пулькой.
+
+\vbox{
+\startdescr{code:} \hfill
+\startTEX
+\startitemize
+\item Это раз
+\item Это два
+\item Это три
+\stopitemize
+\stopTEX
+\stopdescr
+}
+
+\vbox{
+\startdescr{result:} \hfill
+\startCODERESULT
+\startitemize
+\item Это раз
+\item Это два
+\item Это три
+\stopitemize
+\stopCODERESULT
+\stopdescr
+}
+
+У \tex{startitemize} есть необязательные параметры.
+
+\vbox{
+\startdescr{code:} \hfill
+\startTEX
+\startitemize[n]
+\item Это раз
+\item Это два
+\item Это три
+\stopitemize
+\stopTEX
+\stopdescr
+}
+
+\vbox{
+\startdescr{result:} \hfill
+\startCODERESULT
+\startitemize[n]
+\item Это раз
+\item Это два
+\item Это три
+\stopitemize
+\stopCODERESULT
+\stopdescr
+}
+
+Параметр \quote{n} заставляет \c вместо пулек вставлять
+арабские цифры. Можно задать стартовый номер:
+
+\vbox{
+\startdescr{code:} \hfill
+\startTEX
+\startitemize[n,fit][start=42]
+\item Это раз
+\item Это два
+\item Это три
+\stopitemize
+\stopTEX
+\stopdescr
+}
+
+\vbox{
+\startdescr{result:} \hfill
+\startCODERESULT
+\startitemize[n,fit][start=42]
+\item Это раз
+\item Это два
+\item Это три
+\stopitemize
+\stopCODERESULT
+\stopdescr
+}
+
+Отметьте, что \quote{start=42} - это второй необязательный
+параметр. Также, появилась опция \quote{fit} в первом
+параметре. \quote{fit} заставляет \c выделять место под
+маркер списка более тщательно, учитывая содержимое маркера.
+
+Можно сделать цифры римскими:
+
+\vbox{
+\startdescr{code:} \hfill
+\startTEX
+\startitemize[R,fit][start=42]
+\item Это раз
+\item Это два
+\item Это три
+\stopitemize
+\stopTEX
+\stopdescr
+}
+
+\vbox{
+\startdescr{result:} \hfill
+\startCODERESULT
+\startitemize[R,fit][start=42]
+\item Это раз
+\item Это два
+\item Это три
+\stopitemize
+\stopCODERESULT
+\stopdescr
+}
+
+Списки, также, могут быть вложенными:
+
+\vbox{
+\startdescr{code:} \hfill
+\startTEX
+\startitemize
+\item Это раз
+  \startitemize
+  \item Это раз раз
+  \item Это раз два
+  \item Это раз три
+  \stopitemize
+\item Это два
+\item Это три
+\stopitemize
+\stopTEX
+\stopdescr
+}
+
+\vbox{
+\startdescr{result:} \hfill
+\startCODERESULT
+\startitemize
+\item Это раз
+  \startitemize
+  \item Это раз раз
+  \item Это раз два
+  \item Это раз три
+  \stopitemize
+\item Это два
+\item Это три
+\stopitemize
+\stopCODERESULT
+\stopdescr
+}
+
+Вложенные списки имеют другой маркер, маркеры для каждой
+глубины вложенности можно настроить, используя команду
+\tex{setupitemize}.
+
+Более подробно
+\goto{как всегда}[url(http://wiki.contextgarden.net/Enumerations)]
