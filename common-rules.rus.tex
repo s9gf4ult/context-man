@@ -1023,7 +1023,7 @@
 
 \vbox{
 \startdescr{result:} \hfill
-\startCODERESULT
+
 \startitemize
 \item Это раз
   \startitemize
@@ -1034,13 +1034,50 @@
 \item Это два
 \item Это три
 \stopitemize
-\stopCODERESULT
 \stopdescr
 }
 
 Вложенные списки имеют другой маркер, маркеры для каждой
 глубины вложенности можно настроить, используя команду
 \tex{setupitemize}.
+
+Перечисление можно вертикально уплотнить, передав параметр
+\quote{joinedup}.
+
+\vbox{
+\startdescr{code:} \hfill
+\startTEX
+\startitemize[joinedup]
+\item Это раз
+  \startitemize
+  \item Это раз раз
+  \item Это раз два
+  \item Это раз три
+  \stopitemize
+\item Это два
+\item Это три
+\stopitemize
+\stopTEX
+\stopdescr
+}
+
+\vbox{
+\startdescr{result:} \hfill
+
+\startitemize[joinedup]
+\item Это раз
+  \startitemize
+  \item Это раз раз
+  \item Это раз два
+  \item Это раз три
+  \stopitemize
+\item Это два
+\item Это три
+\stopitemize
+\stopdescr
+}
+
+
 
 Более подробно
 \goto{как всегда}[url(http://wiki.contextgarden.net/Enumerations)]
